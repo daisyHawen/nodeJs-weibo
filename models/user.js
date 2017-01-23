@@ -37,7 +37,7 @@ User.prototype.save = function(callback) {
                 mongodb.close();
                 callback(err, user);
             });
-           
+
         })
     })
 };
@@ -55,10 +55,12 @@ User.get = function(username, callback) {
                     console.log('username' + doc);
                     if (doc) {
                         var user = new User(doc);
-                        callback(err, user);
+                        console.log("findOne:"+User);
+                        mongodb.close();
+                        return callback(err, user);
                     }
                     mongodb.close();
-                    callback(err, user);
+                    return callback(err, user);
                 });
             });
         }
