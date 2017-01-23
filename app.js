@@ -40,7 +40,6 @@ app.use(cookieParser());
 app.use(session({
     secret: settings.cookieSecret,
     store: new MongoStore({
-        // url: 'mongodb://localhost/microblog',
         url: 'mongodb://localhost/' + settings.db,
         autoRemove: 'native'
     })

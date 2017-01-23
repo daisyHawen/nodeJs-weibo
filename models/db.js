@@ -1,9 +1,11 @@
 var settings = require('../settings');
-var Db = require('mongodb').Db;
+var mongo = require('mongodb');
+
+var Server=mongo.Server;
+var Db=mongo.Db;
+var server = new Server('localhost', 27017, {auto_reconnect: true});
+var db = new Db(settings.db, server);
+
 var Connection = require('mongodb').Connection;
 
-console.log(Connection);
-var Server = require('mongodb').Server;
-
-module.exports = new Db(settings.db, new Server(settings.host, '21017', {}));
-
+module.exports=db;

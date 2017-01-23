@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto')
-var User=require('../models/user')
+var User = require('../models/user')
 
 /* GET users listing. */
 router.post('/', function(req, res, next) {
@@ -19,20 +19,24 @@ router.post('/', function(req, res, next) {
     });
     //检查用户名是否已经存在
     User.get(newUser.name, function(err, user) {
+        console.log('reg:' + err) //null
+        console.log('reg:' + user); //undefined
         if (user)
             err = 'Username already exists.';
         if (err) {
             req.flash('error', err);
             return res.redirect('/reg');
         }
-        //如果不存在则新增用户 newUser.save(function(err) {
-        if (err) {
-            req.flash('error', err);
-            return res.redirect('/reg');
-        }
-        req.session.user = newUser;
-        req.flash('success', '注册成功');
-        res.redirect('/');
+        //如果不存在则新增用户 
+        newUser.save(function(err) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('/reg');
+            }
+            req.session.user = newUser;
+            req.flash('success', '注册成功');
+            res.redirect('/');
+        });
     });
     // res.send('respond with a resource');
 });
