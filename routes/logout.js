@@ -5,11 +5,7 @@ var router = express.Router();
 router.post('/', function(req, res, next) {
     res.send('respond with a resource');
 });
-// app.get('/logout', function(req, res) {
-//     req.session.user = null;
-//     req.flash('success', '登出成功');
-//     res.redirect('/');
-// });
+
 router.get('/', function(req, res, next) {
     req.session.user = null;
     req.flash('success', '登出成功');
