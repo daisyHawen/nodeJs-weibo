@@ -61,6 +61,7 @@ Post.get = function(username, callback) {
                     if (docs) {
                         var posts = [];
                         docs.forEach(function(doc, index) {
+                            console.dir("doc"+doc)
                             var post = new Post(doc.user, doc.post, doc.time);
                             posts.push(post);
                         })
