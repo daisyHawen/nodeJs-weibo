@@ -56,33 +56,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(function(req, res, next) {
     res.locals.user = req.session.user;
-
     var err = req.flash('error');
     var success = req.flash('success');
-
     res.locals.error = err.length ? err : null;
     res.locals.success = success.length ? success : null;
-
     next();
 });
 
 app.use('/', index);
-app.use('/u/:user', users);
+app.use('/u', users);
 app.use('/list', list);
 app.use('/post', post);
 app.use('/reg', reg);
 app.use('/login', login);
 app.use('/logout', logout);
-
-// app.get('/', routes.index);
-// app.get('/u/:user', routes.user);
-// app.post('/post', routes.post);
-// app.get('/reg', routes.reg);
-// app.post('/reg', routes.doReg);
-
-// app.get('/login', routes.login);
-// app.post('/login', routes.doLogin);
-// app.get('/logout', routes.logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

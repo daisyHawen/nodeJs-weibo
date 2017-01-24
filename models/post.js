@@ -19,7 +19,7 @@ Post.prototype.save = function(callback) {
         post: this.post,
         time: this.time
     }
-
+    console.log('open posts....')
     mongodb.open(function(err, db) {
         if (err) {
             // console.log('User open err')
@@ -27,7 +27,7 @@ Post.prototype.save = function(callback) {
         }
         db.collection('posts', function(err, collection) {
             // console.log(err)
-
+            console.log('posts open success')
             if (err) {
                 mongodb.close();
                 return callback(err);
@@ -40,7 +40,7 @@ Post.prototype.save = function(callback) {
             //写入user文档
             collection.insert(doc1, { safe: true }, function(err, result) {
                 mongodb.close();
-                callback(err, user);
+                callback(err, post);
             });
 
         })
@@ -54,16 +54,18 @@ Post.get = function(username, callback) {
             db.collection('posts', function(err, collection) {
                 var query = {};
                 if (username) {
-                    query.username = username
+                    query.user= username
                 }
                 collection.find(query).sort({ time: -1 }).toArray(function(error, docs) {
-                    console.log(docs);
+                    console.log('model/docs:'+docs);
                     if (docs) {
                         var posts = [];
                         docs.forEach(function(doc, index) {
                             var post = new Post(doc.user, doc.post, doc.time);
                             posts.push(post);
                         })
+                        console.log('mongodb closed')
+                        mongodb.close();
                         return callback(null, posts);
                     }
                     mongodb.close();

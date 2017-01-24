@@ -17,6 +17,7 @@ User.prototype.save = function(callback) {
     console.log('save' + user.name)
     mongodb.open(function(err, db) {
         if (err) {
+            mongodb.close();
             console.log('User open err')
             return callback(err);
         }
@@ -43,6 +44,7 @@ User.prototype.save = function(callback) {
 };
 User.get = function(username, callback) {
     // body...
+    console.log("User.get:" + username);
     mongodb.open(function(err, db) {
         if (!err) {
             console.log("We are connected");
@@ -55,10 +57,12 @@ User.get = function(username, callback) {
                     console.log('username' + doc);
                     if (doc) {
                         var user = new User(doc);
-                        console.log("findOne:"+User);
+                        console.log("findOne:" + User);
+                        console.log('mongodb closed')
                         mongodb.close();
                         return callback(err, user);
                     }
+                    console.log('mongodb closed')
                     mongodb.close();
                     return callback(err, user);
                 });
