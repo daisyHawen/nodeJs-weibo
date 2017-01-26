@@ -28,12 +28,15 @@
               <li><a href="/login">登入</a></li>
               <li><a href="/reg">注册</a></li>
               <% } else { %>
+              <li> <a href="">欢迎你 <%= user.name %>  <li>
               <li><a href="/logout">登出</a></li>
               <% } %>
         </ul>
+
         </div>
        </div>
     </nav>
+    <!-- 用于显示提示信息 -->
     <% if (success) { %>
       <div class="alert alert-success">
         <%= success %>
@@ -43,5 +46,4 @@
       <div class="alert alert-error">
         <%= error %>
      </div> <% } %>
-
     <div id="container" class="container">

@@ -54,8 +54,12 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'bower_components')));
+//动态视图
 app.use(function(req, res, next) {
     res.locals.user = req.session.user;
+    console.log('locals user:' + res.locals.user);
+    console.dir(res.locals.user);
+
     var err = req.flash('error');
     var success = req.flash('success');
     res.locals.error = err.length ? err : null;
