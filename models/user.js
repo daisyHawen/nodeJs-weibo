@@ -70,3 +70,19 @@ User.get = function(username, callback) {
         }
     });
 };
+User.getAll = function(callback) {
+    // body...
+    // console.log("User.get:" + username);
+    mongodb.open(function(err, db) {
+        if (!err) {
+            console.log("We are connected");
+            db.collection('users', function(err, collection) {
+                collection.find().toArray(function(error, users) {
+                    // console.log(users);
+                    mongodb.close();
+                    return callback(err, users);
+                });
+            });
+        }
+    });
+};

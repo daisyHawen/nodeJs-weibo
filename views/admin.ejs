@@ -1,0 +1,11 @@
+<%- include header %>
+<ul><% items.forEach(function(listitem){%>
+    
+<li><%= listitem.name %></li>
+<li><%= listitem.password %></li>
+
+<li><%= listitem.email %></li>
+
+    <%}) %>
+</ul>
+<%- include footer %>
