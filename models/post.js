@@ -54,14 +54,14 @@ Post.get = function(username, callback) {
             db.collection('posts', function(err, collection) {
                 var query = {};
                 if (username) {
-                    query.user= username
+                    query.user = username
                 }
                 collection.find(query).sort({ time: -1 }).toArray(function(error, docs) {
-                    console.log('model/docs:'+docs);
+                    console.log('model/docs:' + docs);
                     if (docs) {
                         var posts = [];
                         docs.forEach(function(doc, index) {
-                            console.dir("doc"+doc)
+                            console.dir("doc" + doc)
                             var post = new Post(doc.user, doc.post, doc.time);
                             posts.push(post);
                         })
@@ -71,6 +71,21 @@ Post.get = function(username, callback) {
                     }
                     mongodb.close();
                     return callback(err);
+                });
+            });
+        }
+    });
+};
+Post.getAll = function(callback) {
+    // body...
+    mongodb.open(function(err, db) {
+        if (!err) {
+            console.log("We are connected");
+            db.collection('posts', function(err, collection) {
+                collection.find().toArray(function(error, users) {
+                    // console.log(users);
+                    mongodb.close();
+                    return callback(err, users);
                 });
             });
         }
