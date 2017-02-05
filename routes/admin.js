@@ -4,36 +4,42 @@ var Post = require('../models/post')
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/info/:info', function(req, res, next) {
     // if(user);
-    console.log("admin router:")
-        // console.dir(req.session)
-    console.log("req.params" + req.params);
+    var info = req.params.info;
+    console.log("admin router info:" + info);
+
     User.getAll(function(err, users) {
-        console.dir(users);
+        // console.dir(users);
         var uitems = [];
         users.forEach(function(user, index) {
             var temp = {};
-            console.dir('user' + user)
-            console.dir('username' + user.name)
+            // console.dir('user' + user)
+            // console.dir('username' + user.name)
 
             temp.name = user.name;
             temp.email = user.email;
-            console.dir("temp " + index + ":" + temp.name);
+            // console.dir("temp " + index + ":" + temp.name);
 
             uitems.push(temp)
         })
-        console.dir("uitems:" + uitems);
         Post.getAll(function(err, posts) {
             res.render('admin', {
                 title: 'Express',
                 items: users,
-                posts: posts
+                posts: posts,
+                info: info
             });
 
         })
     })
 });
+router.get('/delete', function(req, res, next) {
+    var user = req.query.u;
+    console.log("admin delete router user:" + user);
+    res.redirect('/admin/info/info')
+    next();
+})
 
 
 module.exports = router;

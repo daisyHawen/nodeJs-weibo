@@ -1,5 +1,7 @@
 <%- include header %>
+<% if(info=="user"){ %>
 <table class="table table-hover">
+
   <thead> 用户</thead>
   <tr>
   	<th>姓名</th>
@@ -16,6 +18,7 @@
     </tr>
   <% }) %>
 </table>
+<% }else{ %>
 <table class="table table-hover">
   <thead>文章</thead>
   <tr>
@@ -27,10 +30,11 @@
   	<tr>
   		<td><%= listitem.user %></td>
   		<td><%= listitem.post %></td>
+  		<td><%- link_to("删除","../deletePost?u="+listitem.user) %>
   		
-  		<td><button>编辑</button></td>
+  		</td>
     </tr>
   <% }) %>
 </table>
-
+<% } %>
 <%- include footer %>
