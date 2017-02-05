@@ -6,6 +6,7 @@ router.get('/', function(req, res, next) {
 	// if(user);
 	console.log("index router:"+req.session.user)
 	console.dir(req.session)
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Express',
+    supplies:['app','orange'] });
 });
 module.exports = router;
