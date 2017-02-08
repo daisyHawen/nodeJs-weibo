@@ -91,3 +91,17 @@ Post.getAll = function(callback) {
         }
     });
 };
+Post.deleteOne=function(username,callback){
+    mongodb.open(function(err,db){
+        if(!err){
+            console.log("We are connected,ready to delete");
+            db.collection('posts',function(err,collection){
+                var deletItem={
+                    'user':username
+                }
+                collection.delete({deletItem})
+            })
+
+        };
+    })
+}

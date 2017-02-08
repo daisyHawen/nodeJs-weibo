@@ -34,9 +34,10 @@ router.get('/info/:info', function(req, res, next) {
         })
     })
 });
-router.get('/delete', function(req, res, next) {
+router.get('/deletePost', function(req, res, next) {
     var user = req.query.u;
-    console.log("admin delete router user:" + user);
+    console.log("admin delete Post router user:" + user);
+    
     res.redirect('/admin/info/info')
     next();
 })
